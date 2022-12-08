@@ -15,6 +15,7 @@
             <p>{{link.newLink}}</p>
             <p>{{link.oldLink}}</p>
             <p>{{link.viewCount}}</p>
+            <button @click="deleteLink(link.id)">Delete</button>
         </div>
         <!-- <p>Hi {{this.currentUser.email}}</p> -->
     </div>
@@ -70,7 +71,22 @@ export default {
         catch(err){
           console.log(err)
         }
-      },
+    },
+    async deleteLink(id){
+      try {
+        const res = await axios.delete(`http://localhost:3000/${id}`)
+        .then((response)=>{
+          const index = this.links.findIndex((k)=>{
+            return k.id == id;
+          })
+          if(index == -1) return;
+          this.links.splice(index,1)
+        })
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
       
     },
     mounted() {
