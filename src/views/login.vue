@@ -3,8 +3,15 @@
   <header class="w-full bg-green-800 border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
   <div class="w-full container flex flex-wrap items-center justify-between mx-auto">
     <a href="https://flowbite.com/" class="flex items-center">
-        <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
-        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+        <img
+            src="https://i.pinimg.com/originals/a2/42/82/a242827215b5384139c7ed853a5ad1c3.png "
+            class="h-7 mr-3 sm:h-12"
+            alt="Flowbite Logo"
+          />
+          <span
+            class="self-center text-xl font-semibold whitespace-nowrap md:text-white md:p-0 dark:text-white"
+            >Masang Maroko</span
+          >
     </a>
     <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
       <span class="sr-only">Open main menu</span>
@@ -34,6 +41,7 @@
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <input type="password" name="password" id="password" placeholder="••••••••" class="mx-auto border-2 border-green-500 bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" v-model="password" required>
             </div>
+            <a id="cek"></a>
             <button type="submit"  class="w-full text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center">Login</button>
         </form>
     </div>
@@ -59,14 +67,6 @@
   import axios from 'axios'
   
   export default {
-    data(){
-      return {
-        users:[],
-        email: '',
-        password: ''
-        
-      }
-    },
     methods: {
       async loginUser(email, password){
         try {
@@ -75,14 +75,32 @@
             email: email,
             password: password
           })
-          console.log(res.data)
-          localStorage.setItem("userToken", res.data.uid);
-          this.$router.push("/dashboard")
+          .then((response)=>{
+            const userId = response.data.uid
+            if(response.data.code == "auth/wrong-password"){
+              this.$router.push("/")
+              document.getElementById('cek').innerHTML = "Password Salah!"
+              console.log("gak bisa boss")
+            }else {
+              localStorage.setItem("userToken", userId);;
+              this.$router.push("/dashboard")
+            }
+          })
+          // console.log(res.data)
+          // localStorage.setItem("userToken", res.data.uid);
+          // this.$router.push("/dashboard")
         }
         catch(err) {
           console.log(err)
         }
       },
+      check() {
+        if(localStorage.getItem("userToken") != null) {
+          this.$router.push("/dashboard")
+        } else 
+        return;
+      }
+      
       // async getUser(){
         
       //   try{
@@ -97,6 +115,9 @@
       //   }
       // },
       
+    },
+    beforeMount() {
+      this.check()
     },
   }
   </script>

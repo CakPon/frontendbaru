@@ -1,97 +1,237 @@
 <template>
-    <div>
-        <p>dashboard</p>
-        <button @click="logOut()">Log out</button>
-        <div>
-          <label for="oldLink">Enter Link</label><br>
-          <input type="text" v-model="oldLink" required><br>
+  <div>
+    <header
+      class="w-full bg-green-800 border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900"
+    >
+      <div
+        class="w-full container flex flex-wrap items-center justify-between mx-auto"
+      >
+        <a
+          class="flex items-center"
+        >
+          <img
+            src="https://i.pinimg.com/originals/a2/42/82/a242827215b5384139c7ed853a5ad1c3.png "
+            class="h-7 mr-3 sm:h-12"
+            alt="Flowbite Logo"
+          />
+          <span
+            class="self-center text-xl font-semibold whitespace-nowrap md:text-white md:p-0 dark:text-white"
+            >Masang Maroko</span
+          >
+        </a>
+        <button
+          data-collapse-toggle="navbar-default"
+          type="button"
+          class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-default"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+          <ul
+            class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+          >
+            <li>
+              <a
+                href="/dashboard"
+                class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 dark:text-white"
+                aria-current="page"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a
+                @click="logOut()"
+                class="cursor-pointer text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                >Log Out</a
+              >
+            </li>
+          </ul>
         </div>
-        <div>
-          <label for="newLink">127.0.0.1:5173/p/</label><br>
-          <input type="text" v-model="newLink" required><br>
-        </div>
-        <button @click="addLink(oldLink, newLink)">Short Your Link</button>
-        <div v-for="link in links" :key="link">
-            <p>{{link.newLink}}</p>
-            <p>{{link.oldLink}}</p>
-            <p>{{link.viewCount}}</p>
-            <button @click="deleteLink(link.id)">Delete</button>
-        </div>
-        <!-- <p>Hi {{this.currentUser.email}}</p> -->
+      </div>
+    </header>
+    <div class="h-auto flex bg-red-200 p-10">
+      <div
+        class="bg-green-700 border border-white border-10 w-full max-w-5xl m-auto p-4  rounded-lg shadow-md sm:p-6 md:p- flex items-center flex justify-center"
+      >
+        <form class="space-y-6">
+          <h1
+            class="text-xl font-medium text-gray-900 md:text-white md:p-0 dark:text-white flex justify-center"
+          >
+            Shorten
+          </h1>
+          <div class="max-w-sm flex flex-col mx-auto gap-y-4">
+            <label
+              for="oldLink"
+              class="block mb-2 text-sm font-medium text-gray-900 md:text-white md:p-0 dark:text-white"
+              >Drop Your Link</label
+            >
+            <input
+              type="text"
+              name="oldLink"
+              id="oldLink"
+              class="flex w-full border-2 border-green-500 bg-gray-50 text-gray-900 text-sm rounded-lg block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Link.com"
+              v-model="oldLink"
+              required
+            />
+            <label
+              for="newLink"
+              class="block mb-2 text-sm font-medium text-gray-900 md:text-white md:p-0 dark:text-white"
+              >Custom Link</label
+            >
+            <input
+              type="text"
+              name="newLink"
+              id="newLink"
+              placeholder="A.K.A"
+              class="mx-auto border-2 border-green-500 bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              v-model="newLink"
+              required
+            />
+            <div class="mx-auto">
+            <button
+            @click="addLink(oldLink, newLink)"
+            class="text-white bg-red-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center"
+          >
+            Short Your Link
+          </button>
+          </div>
+          </div>
+
+          
+          <div class="grid grid-cols-1 gap-8 ">
+            <div
+              class="mx-28 p-4 bg-green-200 rounded-lg break-all"
+              v-for="link in links"
+              :key="link"
+            >
+              <h1 class="font-bold ">Custom Link :</h1>
+              <a class="underline" @click="getRedirect(link.id)" target="_blank" v-bind:href="link.newLink.slice(14)">{{ link.newLink }}</a>
+              <h1 class="font-bold">Old Link :</h1>
+              <p class="underline" >{{ link.oldLink }}</p>
+              <h1 class="font-bold ">View Count : </h1>
+              <p>{{ link.viewCount }}</p>
+              <div class="flex gap-x-3">
+                <button
+                  class="text-white bg-red-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center"
+                  @click="deleteLink(link.id)"
+                >
+                
+                  Delete
+                </button>
+                <RouterLink :to="{ name: 'editLink', params: { id: link.id } }">
+                  <button class="text-white bg-red-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center">Edit</button>
+                </RouterLink>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
-  
+import axios from "axios";
+
 export default {
   data() {
     return {
       currentUser: "",
-      links: []
-    }
+      links: [],
+    };
   },
   methods: {
-    async logOut() {    
-        try {
-            const res = await axios.get('http://localhost:3000/logout')
-            console.log(res)
-            localStorage.removeItem("userToken")
-            this.$router.push("/")
-        }
-        catch (e) {
-            console.log(e)
-        }
+    async logOut() {
+      try {
+        const res = await axios.get("http://localhost:3000/logout");
+        console.log('logout');
+        localStorage.removeItem("userToken");
+        this.$router.push("/");
+      } catch (e) {
+        console.log(e);
+      }
     },
     async addLink(oldLink, newLink) {
-      try{
-        const res = await axios.post('http://localhost:3000/link',{
-          oldLink: oldLink,
-          newLink: "127.0.0.1:5173/p/" + newLink,
-          uid: localStorage.getItem("userToken")
-        })
-      }
-      catch(err){
-        console.log(err)
-      }
-    },
-    async getLinks(){
-        try{
-          const res = await axios.get('http://localhost:3000/links',{
-            params: {uid: localStorage.getItem('userToken')}
-          }) 
-          .then((response)=>{
-            const links = response.data
-            this.links.push(...response.data)
-            console.log('berhasil')
-            console.log(response)  
-          })
-                
-        }
-        catch(err){
-          console.log(err)
-        }
-    },
-    async deleteLink(id){
       try {
-        const res = await axios.delete(`http://localhost:3000/${id}`)
-        .then((response)=>{
-          const index = this.links.findIndex((k)=>{
-            return k.id == id;
+        const res = await axios.post("http://localhost:3000/link", {
+          oldLink: oldLink,
+          newLink: newLink,
+          uid: localStorage.getItem("userToken"),
+        });
+        console.log("Add Link");
+        this.getLinks();
+      } catch (err) {
+        console.log(err);
+        this.getLinks();
+      }
+    },
+    async getLinks() {
+      this.links = [];
+      try {
+        const res = await axios
+          .get("http://localhost:3000/links", {
+            params: { uid: localStorage.getItem("userToken") },
           })
-          if(index == -1) return;
-          this.links.splice(index,1)
+          .then((response) => {
+            const links = response.data;
+            this.links.push(...response.data);
+            console.log("Get Link");
+            console.log(response);
+          });
+      } catch (err) {
+        console.log(err);
+        this.getLinks();
+      }
+    },
+    async deleteLink(id) {
+      try {
+        const res = await axios.delete(`http://localhost:3000/${id}`);
+        console.log("delete");
+        this.getLinks();
+      } catch (err) {
+        console.log(err);
+        this.getLinks();
+      }
+    },
+    async getRedirect(ids) {
+      try{
+        const res = await axios.get('http://localhost:3000/redirect',{
+          params: {id: ids}
         })
+        console.log(res.data)
+        this.getLinks()
       }
       catch(err){
         console.log(err)
       }
-    }
-      
     },
-    mounted() {
-    this.getLinks()
-      },
-    
-}
+    checkId() {
+      if(localStorage.getItem("userToken") == null || localStorage.getItem("userToken") == '') {
+          this.$router.push("/")
+        } else return;
+    }
+  },
+  mounted() {
+    this.getLinks();
+  },
+  beforeMount() {
+    this.checkId()
+  },
+};
 </script>
