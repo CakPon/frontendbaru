@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <header
       class="w-full bg-green-800 border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900"
     >
@@ -7,17 +7,16 @@
         class="w-full container flex flex-wrap items-center justify-between mx-auto"
       >
         <a
-          href="https://www.google.com/search?q=jadwal+piala+dunia+2022&rlz=1C1VDKB_enID1028ID1028&oq=jadwal+piala+dunia+2022&aqs=chrome.0.69i59j0i131i433i512l5j0i3l2j0i512j0i131i433i512.4312j0j7&sourceid=chrome&ie=UTF-8"
           class="flex items-center"
         >
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            class="h-6 mr-3 sm:h-9"
+            src="https://i.pinimg.com/originals/a2/42/82/a242827215b5384139c7ed853a5ad1c3.png "
+            class="h-7 mr-3 sm:h-12"
             alt="Flowbite Logo"
           />
           <span
-            class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-            >masang maroko</span
+            class="self-center text-xl font-semibold whitespace-nowrap md:text-white md:p-0 dark:text-white"
+            >Masang Maroko</span
           >
         </a>
         <button
@@ -56,8 +55,8 @@
             </li>
             <li>
               <a
-                href="/"
-                class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                @click="logOut()"
+                class="cursor-pointer text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                 >Log Out</a
               >
             </li>
@@ -65,21 +64,22 @@
         </div>
       </div>
     </header>
-    <div class="h-screen flex bg-gray-200">
+       <div class="min-h-screen bg-gray-200 p-10">
       <div
-        class="bg-gray-200 border border-green-500 w-full max-w-5xl m-auto p-4 bg-white rounded-lg shadow-md sm:p-6 md:p-8 flex items-center flex justify-center"
+        class="bg-gray-200 flex flex-col border-8 gap-y-8 border-white border-2 w-full max-w-5xl m-auto p-4 bg-white  rounded-lg shadow-md sm:p-6 md:p- flex items-center flex justify-center"
       >
-        <form class="space-y-6">
+      <div class="w-full py-4 rounded-lg">
+        <form class="space-y-6" @submit.prevent="editLink(this.ids)">
           <h1
-            class="text-xl font-medium text-gray-900 dark:text-white flex justify-center"
+            class=" font-bold text-gray-900 m md:p-0 dark:text-white  underline flex justify-center text-2xl "
           >
             Edit Link
           </h1>
-          <div class="max-w-sm flex flex-col mx-auto gap-y-4">
+          <div class="max-w-sm flex flex-col mx-auto gap-y-2">
             <label
               for="oldLink"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Enter Link</label
+              class="block mb-2 text-sm font-bold text-gray-900  md:p-0 dark:text-white"
+              >Enter Link :</label
             >
             <input
               type="text"
@@ -89,7 +89,7 @@
             />
             <label
               for="newLink"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              class="block mb-2 text-sm font-bold text-gray-900  md:p-0 dark:text-white"
               >127.0.0.1:5173/p/</label
             >
             <input
@@ -97,29 +97,26 @@
               ref="newLink"
               :placeholder="this.links.find(link => link.id == this.ids).id"
               class="mx-auto border-2 border-green-500 bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              required
             />
             <div class="mx-auto">
-        <button
-            @click="editLink(this.ids)"
-            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex "
-          >
-            Edit Link
-        </button>
-            <button
-            @click="$router.push('/dashboard')"
-            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center"
-          >
-            Back
-          </button>
-  
-
+              <div class="flex gap-x-3">
+                <button
+                  class="text-white bg-red-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center"
+                  @click="deleteLink(link.id)"
+                >
+                
+                  Delete
+                </button>
+                  <button @click="$router.push('/dashboard')" class="text-white bg-red-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center">Back</button>
+              </div>
           </div>
+          
           </div>
-        </form>
+           </form>  
+      </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -142,7 +139,8 @@ export default {
                     viewCount: this.links.find(link => link.id == this.ids).viewCount
                 })
                 console.log("Update Link")
-                this.deleteLink()
+                this.deleteLink(this.ids)
+                console.log("Delete Link Lama")
                 this.$router.push("/edit/"+this.$refs.newLink.value)
             }
             catch(err) {
@@ -151,9 +149,9 @@ export default {
             }
         },
         
-        async deleteLink(){
+        async deleteLink(id){
             try {
-                const res = await axios.delete(`http://localhost:3000/${this.ids}`)
+                const res = await axios.delete(`http://localhost:3000/${id}`)
                 console.log("delete")
                 this.getLinks()
             }

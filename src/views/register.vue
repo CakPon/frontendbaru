@@ -34,33 +34,21 @@
         <form class="space-y-6" action="#">
             <h5 class="text-xl font-medium text-gray-900 dark:text-white flex justify-center">Register</h5>
             <div>
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                <input type="email" name="email" id="email" class="flex w-full border-2 border-green-500 bg-gray-50 text-gray-900 text-sm rounded-lg block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="email@gmail.com"  v-model="email" required>
+                <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input type="email" name="email" id="email" class="w-72 border-2 border-green-500  bg-gray-50 text-gray-900 text-sm rounded-lg block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="email@gmail.com"  v-model="email" required>
             </div>
             <div>
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <input type="password" name="password" id="password" placeholder="••••••••" class="mx-auto border-2 border-green-500 bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  v-model="password" required>
+                <input type="password" name="password" id="password" placeholder="••••••••" class="w-72  border-2 border-green-500 bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  v-model="password" required>
+              <a id="cek" class="text-red-700 text-sm"></a>
             </div>
-            <a id="cek"></a>
-            <button @click="postUser( email, password)" type="button" class="w-full text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center">Submit</button>
+            <div class="flex justify-center">
+            <button @click="postUser( email, password)" type="submit" class="w-24 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center">Submit</button>
+            </div>
         </form>
     </div>
 </div>
 </div>
-
-
-    <!-- <div class="box">
-      <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form @submit.prevent="postUser( email, password)">
-            <h1>Register</h1>
-          <label for="email">email</label><br>
-          <input type="email" v-model="email" required><br>
-          <label for="password">Password</label><br>
-          <input type="password" v-model="password" required><br>
-          <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit</button>
-        </form>
-      </div>
-    </div> -->
 </template>
     
     <script>
@@ -84,34 +72,23 @@
             const userId = response.data.uid
             if(response.data.code == "auth/email-already-in-use"){
               this.$router.push("/register")
-              document.getElementById('cek').innerHTML = "Email sudah digunakan!"
+              document.getElementById('cek').innerHTML = "The email account already exists!"
               console.log("gak bisa boss")
-            }else {
-              localStorage.setItem("userToken", userId);;
+            }else if(response.data.code == "auth/weak-password"){
+              this.$router.push("/register")
+              document.getElementById('cek').innerHTML = "Password is too short!"
+              console.log("cek")
+            }
+            else {
               this.$router.push("/")
             }
           })
             console.log(email, password)
-            // .then((response))
           }
           catch(err){
             console.log(err)
           }
         },
-        // async getUser(){
-        //   try{
-        //     const res = await axios.get('http://localhost:3000/get/user')
-        //     console.log(res)
-        //   }
-        //   catch(err){
-        //     console.log(err)
-        //   }
-        // },
-        
-      },
-      mounted() {
-        
-        // this.getUser()
       },
     }
     </script>

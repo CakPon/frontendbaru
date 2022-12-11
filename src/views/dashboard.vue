@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <header
       class="w-full bg-green-800 border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900"
     >
@@ -64,21 +64,22 @@
         </div>
       </div>
     </header>
-    <div class="h-auto flex bg-red-200 p-10">
+    <div class="min-h-screen bg-gray-200 p-10">
       <div
-        class="bg-green-700 border border-white border-10 w-full max-w-5xl m-auto p-4  rounded-lg shadow-md sm:p-6 md:p- flex items-center flex justify-center"
+        class="bg-gray-200 flex flex-col border-8 gap-y-8 border-white border-2 w-full max-w-5xl m-auto p-4 bg-white  rounded-lg shadow-md sm:p-6 md:p- flex items-center flex justify-center"
       >
+      <div class="w-full py-4 rounded-lg">
         <form class="space-y-6">
           <h1
-            class="text-xl font-medium text-gray-900 md:text-white md:p-0 dark:text-white flex justify-center"
+            class=" font-bold text-gray-900 md:p-0 text-black  underline flex justify-center text-6xl "
           >
             Shorten
           </h1>
-          <div class="max-w-sm flex flex-col mx-auto gap-y-4">
+          <div class="max-w-sm flex flex-col mx-auto gap-y-2">
             <label
               for="oldLink"
-              class="block mb-2 text-sm font-medium text-gray-900 md:text-white md:p-0 dark:text-white"
-              >Drop Your Link</label
+              class="block mb-2 text-sm font-bold text-gray-900 md:p-0 dark:text-white"
+              >Drop Your Link : </label
             >
             <input
               type="text"
@@ -91,8 +92,8 @@
             />
             <label
               for="newLink"
-              class="block mb-2 text-sm font-medium text-gray-900 md:text-white md:p-0 dark:text-white"
-              >Custom Link</label
+              class="block mb-2 text-sm font-bold text-gray-900 md:p-0 dark:text-white"
+              >Custom Link : </label
             >
             <input
               type="text"
@@ -103,29 +104,39 @@
               v-model="newLink"
               required
             />
+         
             <div class="mx-auto">
             <button
             @click="addLink(oldLink, newLink)"
-            class="text-white bg-red-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center"
+            class="text-white bg-red-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center "
           >
             Short Your Link
           </button>
+          <br>
+             <h1
+              class=" font-bold text-gray-900 md:p-0 dark:text-white flex justify-center text-2xl "
+            >
+              Your Links :
+            </h1>
+            </div>
           </div>
-          </div>
-
+        </form>  
+</div>
           
-          <div class="grid grid-cols-1 gap-8 ">
+          <div class="grid grid-cols-2 gap-8 ">
             <div
-              class="mx-28 p-4 bg-green-200 rounded-lg break-all"
+              class="p-4 bg-green-200 rounded-lg break-all flex flex-col justify-between border-4 border-white"
               v-for="link in links"
               :key="link"
             >
+            <div class="flex flex-col">
               <h1 class="font-bold ">Custom Link :</h1>
               <a class="underline" @click="getRedirect(link.id)" target="_blank" v-bind:href="link.newLink.slice(14)">{{ link.newLink }}</a>
               <h1 class="font-bold">Old Link :</h1>
-              <p class="underline" >{{ link.oldLink }}</p>
+              <a class="underline" target="_blank" v-bind:href="link.oldLink" >{{ link.oldLink }}</a>
               <h1 class="font-bold ">View Count : </h1>
               <p>{{ link.viewCount }}</p>
+              </div>
               <div class="flex gap-x-3">
                 <button
                   class="text-white bg-red-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex justify-center"
@@ -140,7 +151,7 @@
               </div>
             </div>
           </div>
-        </form>
+       
       </div>
     </div>
   </div>

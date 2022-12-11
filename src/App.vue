@@ -1,5 +1,6 @@
 <template>
-  <router-view></router-view>
+
+  <router-view class="font-mono"></router-view>
 </template>
 // <script>
 // import { RouterLink, RouterView } from 'vue-router'
